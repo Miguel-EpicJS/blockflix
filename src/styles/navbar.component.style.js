@@ -1,20 +1,37 @@
 import styled, { css } from "styled-components";
 
 export const NavMenuStyle = styled.nav`
-    background: #96C3EC;
-    margin-top: -16px;
-    padding: 0;
+    
 `
 
 export const UlMenuStyle =styled.ul`
-    list-style-type: none; 
+    width: 100%;
+    background: #96C3EC;
+    margin-top: -16px;
+    height: 100px;
+
+    padding: 0;
+    margin: 0;
+    list-style: none;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    height: 40px;
+    justify-content: center;
 `
 
 export const LiMenuStyle =styled.li`
-    font-size: 25px;
+    width: 100%;
+    margin-left: 250px;
+`
+
+export const LinkMenuStyle = styled.span`
     color: #ccc;
+    padding: 5px;
+    width: 200px;
+    height: 150px;
+    margin: auto;
+    line-height: 150px;
+    color: white;
+    font-weight: bold;
+    font-size: 3em;
+    text-align: center;
 `

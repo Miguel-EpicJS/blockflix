@@ -5,8 +5,8 @@ import { useParams } from "react-router";
 import { useHistory, Link } from "react-router-dom";
 import { MyContext } from "../context/context";
 
+import { MovieImg, Flex, } from "../styles/movieDetails.pages.style"
 
-import Movie from "../components/Movies/Movie"
 
 const imgUrl = "https://image.tmdb.org/t/p/w500/";
 
@@ -49,7 +49,7 @@ export function MovieDetails() {
   }, []);
 
   const goToMovies = (idMovies) => {
-    window.location.href=`/movies/${idMovies}`;
+    window.location.href = `/movies/${idMovies}`;
   };
   const goToCredit = (idCredit) => {
     /* window.location.href=`/credit/${idCredit}`; */
@@ -63,37 +63,40 @@ export function MovieDetails() {
 
     return recommendedMovies.results.map((movie) => {
       return (
-        <img onClick={ () => { goToMovies(movie.id) } } src={imgUrl + movie.poster_path} />
+        <img onClick={() => { goToMovies(movie.id) }} src={imgUrl + movie.poster_path} width="300px" style={{margin: "8px"}} />
       );
     });
 
   }, [recommendedMovies]);
 
-  
+
 
   if (movie === null) {
     return <h1>Carregando...</h1>;
   }
   return (
     <div>
-      <div style={{ width: "100%", height: "400px", overflow: "hidden" }}>
-        <img src={imgUrl + movie.poster_path} />
-      </div>
-      <h1>{movie.title}</h1>
-      <p>
-        {movie.release_date} {timeConvert(movie.runtime)}
-      </p>
-      <p>
-        {movie.overview}
-      </p>
-
+      <Flex>
+        <div style={{flexBasis: "50%"}}>
+          <MovieImg src={imgUrl + movie.poster_path} />
+        </div>
+        <div>
+          <h1>{movie.title}</h1>
+          <p>
+            {movie.release_date} {timeConvert(movie.runtime)}
+          </p>
+          <p>
+            {movie.overview}
+          </p>
+        </div>
+      </Flex  >
       <div>
         <h2>Authors</h2>
 
         {
           creditsMovies.map((movie) => {
             return (
-              <img src={imgUrl + movie.profile_path} onClick={() => goToCredit(movie.credit_id)} />
+              <img src={imgUrl + movie.profile_path} onClick={() => goToCredit(movie.credit_id)} width="200px" alt="" style={{margin: "5px"}} />
             )
           })
         }

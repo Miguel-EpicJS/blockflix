@@ -6,19 +6,13 @@ import { MyContext } from "../../context/context";
 import { MovieService } from "../../services/MovieService";
 import { MOVIES } from "../../tests/produtos";
 
-/**
- * 1. [] Renderizar a lista de produtos
- * 2. [] Exibir quantos produtos estão no carrinho
- * 3. [] Ir para os detalhes do produto
- */
+import { TrendingTitle } from "../../styles/movies.components.style"
+
 export function Movies() {
     const [movies, setMovies] = useState(MOVIES);
-    // @todo esse produtos precisa vir do "portal"
+    const [genres, setGenres] = useState([]);
 
-    const { cartMovies, addMovieToCart } =
-        useContext(MyContext);
-
-    // const addMovieToCart = contexto.addMovieToCart
+    const { cartMovies, addMovieToCart } = useContext(MyContext);
 
     const history = useHistory();
 
@@ -26,9 +20,15 @@ export function Movies() {
         const run = async () => {
             const movies = await MovieService.getMovies();
             setMovies(movies.results);
+
+            const genres = await MovieService.getGenres();
+            setGenres(genres.genres);
+
         };
 
         run();
+
+        console.log(genres);
     }, []);
 
     const goToMovies = (idMovies) => {
@@ -37,7 +37,7 @@ export function Movies() {
 
     const render = () => {
         return (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", flexDirection: "row", width: "97%", marginLeft: "75px" }}>
                 {movies.map((movie) => {
                     return (
                         <Movie
@@ -49,13 +49,52 @@ export function Movies() {
                     );
                 })}
             </div>
-        )
+        );
+    };
+
+    const findByGenre = async (genreId) => {
+        const movies = await MovieService.getGenresMovies(genreId);
+        console.log(movies);
+        /* return (
+            <div style={{ display: "flex", flexWrap: "wrap", flexDirection: "row", width: "97%", marginLeft: "75px" }}>
+                {movies.map((movie) => {
+                    return (
+                        <Movie
+                            key={movie.id}
+                            movie={movie}
+                            navigate={goToMovies}
+                            addToCart={addMovieToCart}
+                        />
+                    );
+                })}
+            </div>
+        ); */
     }
 
     return (
         <div style={{ padding: 20 }}>
-            <h1>Movies</h1>
+            <TrendingTitle> <hr /> TRENDING <hr /></TrendingTitle>
             {render()}
+            <div>
+                <TrendingTitle> 
+                    <hr /> 
+                    
+                    <label>
+                        GENRE
+                        <input list="genres" name="myGenres" onChange={console.log()} />
+                    </label>
+                    <datalist  id="genres">
+                        <option value="Action" />
+                        {
+                            genres.map(genre => {
+                                return <option key={genre.id} value={genre.name} />
+                            })
+                        }
+                    </datalist>
+                    
+                    <hr />
+                </TrendingTitle>
+            </div>
         </div>
     );
 }

@@ -33,7 +33,7 @@ export default function RouterExample() {
   return (
     <Router>
       <MyProvider>
-        {window.location.pathname !== "/" ? <Navbar /> : "" }
+        <Navbar /> 
 
 
         <Switch>

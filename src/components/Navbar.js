@@ -6,6 +6,7 @@ import {
     NavMenuStyle,
     UlMenuStyle,
     LiMenuStyle,
+    LinkMenuStyle,
 } from "../styles/navbar.component.style";
 
 export default function Navbar() {
@@ -18,13 +19,15 @@ export default function Navbar() {
                         .map((route) => {
                             return (
                                 <LiMenuStyle>
-                                    <Link
-                                        className="nav-link active"
-                                        aria-current="page"
-                                        to={route.path}
-                                    >
-                                        {<route.icon />}
-                                    </Link>
+                                    <LinkMenuStyle>
+                                        <Link
+                                            className="nav-link active"
+                                            aria-current="page"
+                                            to={route.path}
+                                        >
+                                            {<route.icon color="#4B5C6B" />}
+                                        </Link>
+                                    </LinkMenuStyle>
                                 </LiMenuStyle>
                             );
                         })}

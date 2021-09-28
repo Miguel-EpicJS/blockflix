@@ -1,7 +1,9 @@
-import { MovieContainer } from "./styles";
+import { RiShoppingCartFill } from "react-icons/ri";
+import { VscLinkExternal } from "react-icons/vsc";
 
+import { PriceButton, LinkButton, MovieContainer, MovieTitle } from "../../styles/movie.components.style";
 
-const imgUrl = "https://image.tmdb.org/t/p/w200/";
+const imgUrl = "https://image.tmdb.org/t/p/w300/";
 
 export default function Movie({ movie, navigate, addToCart }) {
     const gotToMovie = () => {
@@ -17,24 +19,22 @@ export default function Movie({ movie, navigate, addToCart }) {
             <img
                 onClick={gotToMovie}
                 src={imgUrl + movie.poster_path}
-                className="card-img-top"
                 alt="..."
-                style={{ maxHeight: 300, padding: 20 }}
+                width="280px"
             />
-            <div className="card-body">
-                <h5 className="card-title" onClick={gotToMovie}>
-                    {movie.title}
-                </h5>
+            <div>
+                <MovieTitle onClick={gotToMovie}>
+                    {movie.title !== undefined ? movie.title : movie.name}
+                </MovieTitle>
             </div>
 
-            <div className="card-footer">
-                <span onClick={gotToMovie} className="btn btn-primary">Ver detalhes</span>
-                <button
-                    className="btn btn-secondary"
+            <div>
+                <LinkButton onClick={gotToMovie}><VscLinkExternal color="#fff" /></LinkButton>
+                <PriceButton
                     onClick={onClickAddToCart}
                 >
-                    R$ {movie.price}
-                </button>
+                    <RiShoppingCartFill color="#fff" /> R$ {movie.vote_average * 10}
+                </PriceButton>
             </div>
         </MovieContainer>
     );

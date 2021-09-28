@@ -18,11 +18,22 @@ export function MyProvider({ children }) {
         });
     };
 
+    const updateMovieToCart = (movie) => {
+        setCartMovies((prevState) => {
+            if (prevState.find((p) => p.id === movie.id)) {
+                return prevState;
+            }
+
+            return (movie);
+        });
+    };
+
     return (
         <MyContext.Provider
             value={{
                 cartMovies,
                 addMovieToCart,
+                updateMovieToCart,
                 user: false
             }}
         >
